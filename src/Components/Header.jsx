@@ -10,9 +10,9 @@ function Header() {
             <Link to="/">
                 <Img src={imdbImg} alt="로고" />
             </Link>
-            <Link to="/movie">Popular</Link>
-            <Link to="/movie">Top Rated</Link>
-            <Link to="/movie">Upcoming</Link> 
+            <Link to="/movie/popular">Popular</Link>
+            <Link to="/movie/top_rated">Top Rated</Link>
+            <Link to="/movie/upcoming">Upcoming</Link> 
         </Cell>     
     </Container> 
     );
