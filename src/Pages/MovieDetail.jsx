@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { config } from "../constant";
+import styled from "styled-components";
 
 function MovieDetail() {
     
@@ -20,11 +21,15 @@ function MovieDetail() {
          })
     }, [param.id])
 
+    if (!movie) {
+        return <></>
+    }
+
     return ( 
         <Container>
             <Intro>
                 <ImgBox className="backdrop">
-                    <img src={"https://image.tmdb.org/t/p/original" + movie.backdrop_path} alt="포스터 사진" />
+                    <img src={"https://image.tmdb.org/t/p/original" + movie.poster_path} alt="포스터 사진" />
                 </ImgBox>
             </Intro>
             <Content>
@@ -35,20 +40,25 @@ function MovieDetail() {
                 </LeftSide>
                 <RightSide>
                     <RightSideTop>
-                        <Title></Title>
+                        <Title>{movie.original_title}</Title>
                         <Text>
-
+                            <span>
+                                {movie.vote_average} ⭐
+                            </span>
+                            <span>/</span>
+                            <span>{movie.runtime + " mins"}</span>
                         </Text>
                         <Text>
-                            
                         </Text>
                         <GenreGroup>
-                            <GenreItem></GenreItem>
+                            {movie.genres.map((genre) => (
+                                <GenreItem key={genre.id}>{genre.name}</GenreItem>
+                            ))}
                         </GenreGroup>
                     </RightSideTop>
                     <RightSideBottom>
-                        <BottomTitle></BottomTitle>
-                        <BottomText></BottomText>
+                        <BottomTitle>소개글(Synopsis)</BottomTitle>
+                        <BottomText>{movie.overview}</BottomText>
                     </RightSideBottom>
                 </RightSide>
             </Content>

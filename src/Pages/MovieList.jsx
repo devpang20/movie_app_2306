@@ -3,30 +3,44 @@ import { useParams } from "react-router";
 import styled from "styled-components";
 import { config } from "../constant";
 import Card from "../Components/Card";
+import SearchBox from "../Components/SearchBox";
 
 function MovieList() {
+    // 상세페이지 관련 
     const [movies, setMovies] = useState([])
     const params = useParams();
 
+    // 검색 관련
+    const [keyword, setKeyword] = useState("")
+    const onChangeKeyword = (e) => {
+        setKeyword(e.target.value)
+    }
 
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/movie/${params.type ? params.type : "popular" }?language=ko-KR&api_key=` + config.API_KEY
         )
             .then((res) => res.json())
             .then((data) => {
-            console.log(data)
+            // console.log(data)
             setMovies(data.results)
+            setKeyword("")
         })
      }, [params.type])
 
 
     return ( 
         <Container>
-            <h3>서치박스</h3>
+            <SearchBox keyword={keyword} onChangeKeyword={onChangeKeyword} />
             <Title></Title>
             <Group>
-                {movies.map((movie) => (
-                    <Card key={movie} movie={movie}></Card>
+                {movies
+                    .filter(
+                        (movie) => 
+                            movie.original_title.toLowerCase().includes(keyword.toLowerCase()) ||
+                        movie.title.toLowerCase().includes(keyword.toLowerCase())
+                    )
+                    .map((movie) => (
+                        <Card key={movie.id} movie={movie}></Card>
                 ))}
             </Group>
         </Container>

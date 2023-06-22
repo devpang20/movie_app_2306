@@ -14,9 +14,9 @@ function Home() {
        fetch("https://api.themoviedb.org/3/movie/popular?language=ko-KR&api_key=" + 
         config.API_KEY
        )
-       .then((res) => res.json())
-       .then((data) => {
-        console.log(data)
+        .then((res) => res.json())
+        .then((data) => {
+        // console.log(data)
         setPopularMovies(data.results)
        })
         
@@ -49,11 +49,5 @@ const MoviePoster = styled.div`
     align-items: center;
 `;
 
-const ImgBox = styled.div`
-    height: calc(100vh - 80px);
-    img {
-        display: block;
-    }
-`
 
 export default Home;
