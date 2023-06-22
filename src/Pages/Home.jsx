@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { movies } from "../../movie_data";
 import { useEffect, useState } from "react";
 import { config } from "../constant";
+import PosterItem from "../Components/PosterItem";
 
 function Home() {
     const [popularMovies, setPopularMovies] = useState([])
@@ -34,14 +35,7 @@ function Home() {
                     transitionTime={3}
                 >
                     {popularMovies.map((movie) => (
-                        <ul key={movie.id}>
-                            <ImgBox>
-                                <img src={"https://image.tmdb.org/t/p/original" + movie.backdrop_path } alt="" />
-                            </ImgBox>
-                            <li>
-                                {movie.title}
-                            </li>
-                        </ul>
+                        <PosterItem key={movie.id} movie={movie} />
                     ))}
                 </Carousel>
             </MoviePoster>
